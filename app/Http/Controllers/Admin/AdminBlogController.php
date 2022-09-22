@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Http\Requests\Admin\StoreBlogRequest;
+use App\Http\Requests\Admin\UpdateBlogRequest;
+
 
 class AdminBlogController extends Controller
 {
@@ -49,20 +51,26 @@ class AdminBlogController extends Controller
     // 指定したIDのブログの編集画面
     public function edit($id)
     {
-        $blog =Blog::findOrFall($id);
+        $blog =Blog::findOrFail($id);
         return view('admin.blogs.edit', ['blog' => $blog]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    // 指定したIDのブログの更新画面
+    public function update(UpdateBlogRequest $request, $id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $updateData = $request->validated();
+
+        // 画像を変更する場合
+        if ($request->has('image')) {
+            // 変更前の画像削除
+            Storage::disk('public')->delete($blog->image);
+            // 変更後の画像をアップロード
+            $updateData['image'] = $request->file('image')->store('blogs', 'public');
+        }
+        $blog->update($updateData);
+
+        return to_route('admin.blogs.index')->with('success'. 'ブログを更新しました');
     }
 
     /**
