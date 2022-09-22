@@ -13,7 +13,8 @@ class AdminBlogController extends Controller
     // ブログ一覧画面
     public function index()
     {
-        return view('admin.blogs.index');
+        $blogs = Blog::all();
+        return view('admin.blogs.index', ['blogs' => $blogs]);
     }
 
     
@@ -45,15 +46,11 @@ class AdminBlogController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // 指定したIDのブログの編集画面
     public function edit($id)
     {
-        //
+        $blog =Blog::findOrFall($id);
+        return view('admin.blogs.edit', ['blog' => $blog]);
     }
 
     /**
