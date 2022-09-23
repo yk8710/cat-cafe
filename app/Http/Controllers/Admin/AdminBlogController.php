@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Http\Requests\Admin\StoreBlogRequest;
 use App\Http\Requests\Admin\UpdateBlogRequest;
-
+use Illuminate\Support\Facades\Storage;
 
 
 class AdminBlogController extends Controller
@@ -16,7 +16,7 @@ class AdminBlogController extends Controller
     // ブログ一覧画面
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::latest('updated_at')->limit(10)->get();
         return view('admin.blogs.index', ['blogs' => $blogs]);
     }
 
