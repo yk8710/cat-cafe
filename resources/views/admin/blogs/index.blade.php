@@ -49,6 +49,11 @@
                         </div>
                     </td>
                 </tr>
-                @endforeach  
+                @endforeach
+                </tbody>  
+            </table>
+        </div>
+    </div>
+    {{ $blogs->onEachSide(2)->links() }}
 </section>
 @endsection
