@@ -3,6 +3,8 @@
 use \App\Http\Controllers\Admin\AdminBlogController;
 use \App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\Admin\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +33,7 @@ Route::post('/admin/blogs', [AdminBlogController::class, 'store'])->name('admin.
 Route::get('/admin/blogs/{blog}', [AdminBlogController::class, 'edit'])->name('admin.blogs.edit');
 Route::put('/admin/blogs/{blog}', [AdminBlogController::class, 'update'])->name('admin.blogs.update');
 Route::delete('/admin/blogs/{blog}', [AdminBlogController::class, 'destroy'])->name('admin.blogs.destroy');
+
+// ユーザー管理
+Route::get('/admin/user/create', [UserController::class, 'create'])->name('admin.users.create');
+Route::post('/admin/users', [UserController::class, 'store'])->name('admin.users.store');
