@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illluminate\Support\Facades\Hash;
-use App\Http\Controllers\Admin\StoreUserRequest;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\Admin\StoreUserRequest;
 
 class UserController extends Controller
 {
